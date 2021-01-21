@@ -21,7 +21,17 @@ def update_client(client_name, updated_name):
 
     if client_name in clients:
         clients = clients.replace(client_name, updated_name)
+    else:
+        print('Client is not in client\'s list')
 
+
+def delete_client(client_name):
+    global clients
+
+    if client_name in clients:
+        clients = clients.replace(f'{client_name},','')
+    else:
+        print('Client is not in client\'s list')
 
 def _print_welcome():
     print('WELCOME TO SALES CLI')
@@ -45,7 +55,9 @@ if __name__ == "__main__":
         create_client(client_name)
         list_clients()
     elif command == 'D':
-        pass
+        client_name = _get_client_name()
+        delete_client(client_name)
+        list_clients()
     elif command == 'U':
         client_name = _get_client_name()
         updated_name = input('What is the updated client name? ')
