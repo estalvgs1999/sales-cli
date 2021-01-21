@@ -73,7 +73,7 @@ def _print_welcome():
     print('[S]earch client')
 
 
-def _get_client_field(field):
+def _get_client_field(field = 'name'):
     client_field = None
 
     while not client_field:
@@ -119,7 +119,7 @@ if __name__ == "__main__":
         update_client(client_uid, updated_client)
         list_clients()
     elif command == 'S':
-        client_name = _get_client_name()
+        client_name = _get_client_field()
         found = search_client(client_name)
         
         if found:
