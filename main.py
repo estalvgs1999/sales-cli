@@ -1,19 +1,28 @@
 import sys
+import csv
+import os
 
-clients = [
-    {
-        'name': 'Pablo',
-        'company': 'Google',
-        'email': 'pablo@google.com',
-        'position': 'Software Engineer'
-    },
-    {
-        'name': 'Ricardo',
-        'company': 'Facebook',
-        'email': 'ricardo@facebook.com',
-        'position': 'Data Engineer'
-    }
-]
+CLIENT_TABLE = '.clients.csv'
+CLIENT_SCHEMA = ['name','company','email','position']
+clients = []
+
+
+def _init_clients_from_storage():
+    with open(CLIENT_TABLE, mode='r') as f:
+        reader = csv.DictReader(f,fieldnames= CLIENT_SCHEMA)
+        for client in reader:
+            clients.append(client)
+
+
+def _save_clients_to_storage():
+    tmp_table_name = f'{CLIENT_TABLE}.tmp'
+    with open(tmp_table_name, mode='w') as f:
+        writer = csv.DictWriter(f,fieldnames=CLIENT_SCHEMA)
+        writer.writerows(clients)
+
+        os.remove(CLIENT_TABLE)
+        os.rename(tmp_table_name, CLIENT_TABLE)
+
 
 def list_clients():
     global clients
@@ -96,28 +105,27 @@ def _get_client_data():
     return client
 
 
-if __name__ == "__main__":
+def run():
+    _init_clients_from_storage()
     _print_welcome()
     command = input().upper()
 
     if command == 'C':
         client = _get_client_data()
-
         create_client(client)
-        list_clients()
+
     elif command == 'D':
         client_uid = int(_get_client_field('uid'))
-        
         delete_client(client_uid)
-        list_clients()
+
     elif command == 'L':
         list_clients()
+
     elif command == 'U':
         client_uid = int(_get_client_field('uid'))
         updated_client = _get_client_data()
-        
         update_client(client_uid, updated_client)
-        list_clients()
+
     elif command == 'S':
         client_name = _get_client_field()
         found = search_client(client_name)
@@ -126,5 +134,12 @@ if __name__ == "__main__":
             print('The client is in the client\'s list')
         else:
             print(f'The client: {client_name} is not in our client\'s list')
+    
     else:
         print('Invalid command')
+
+    _save_clients_to_storage()
+
+
+if __name__ == "__main__":
+    run()
