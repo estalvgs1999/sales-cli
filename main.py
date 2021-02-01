@@ -27,6 +27,8 @@ def _save_clients_to_storage():
 def list_clients():
     global clients
     
+    print('uid |  name  |  company  |  email  |  position ')
+    print('-'*50)
     for idx,client in enumerate(clients):
         print('{uid} | {name} | {company} | {email} | {position}'.format(
             uid = idx,
