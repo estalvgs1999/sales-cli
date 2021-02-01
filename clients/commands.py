@@ -1,11 +1,14 @@
 import click
+from tabulate import tabulate
 from clients.services import ClientService
 from clients.models import Client
+
 
 @click.group()
 def clients():
     """Manages the clients lifecycle"""
     pass
+
 
 @clients.command()
 @click.option('-n','--name',type= str, prompt= True, help= 'The client name')
@@ -15,9 +18,9 @@ def clients():
 @click.pass_context
 def create(ctx, name, company, email, position):
     """Creates a new client"""
+
     client = Client(name, company, email, position)
     client_service = ClientService(ctx.obj['clients_table'])
-
     client_service.create_client(client)
 
 
@@ -25,7 +28,21 @@ def create(ctx, name, company, email, position):
 @click.pass_context
 def list(ctx):
     """List all clients"""
-    pass
+    client_service = ClientService(ctx.obj['clients_table'])
+    clients_list = client_service.list_clients()
+
+    headers = [field.capitalize() for field in Client.schema()]
+    table = []
+
+    for client in clients_list:
+        table.append(
+            [client['name'],
+             client['company'],
+             client['email'],
+             client['position'],
+             client['uid']])
+
+    click.echo(tabulate(table, headers))
 
 
 @clients.command()
