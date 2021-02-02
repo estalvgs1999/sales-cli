@@ -42,7 +42,9 @@ def list(ctx):
              client['position'],
              client['uid']])
 
+    click.echo('\n')
     click.echo(tabulate(table, headers))
+    click.echo('\n')
 
 
 @clients.command()
