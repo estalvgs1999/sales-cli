@@ -6,7 +6,7 @@
 [![PyPI license](https://img.shields.io/pypi/l/ansicolortags.svg)](https://pypi.python.org/pypi/ansicolortags/)
 [![GitHub tag](https://img.shields.io/github/tag/Naereen/StrapDown.js.svg)](https://GitHub.com/Naereen/StrapDown.js/tags/)
 
-`sls` is the command line application that allows you to manage the sales of your company. It brings you to manage customers, sales, inventories and generate quick reports.
+`sales` is the command line application that allows you to manage the sales of your company. It brings you to manage customers, sales, inventories and generate quick reports.
 
 -- demo img --
 
