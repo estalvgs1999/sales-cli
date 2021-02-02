@@ -8,10 +8,23 @@
 
 `sales` is the command line application that allows you to manage the sales of your company. It brings you to manage customers, sales, inventories and generate quick reports.
 
--- demo img --
+![demo](assets/demo.png)
 
 Sales CLI is built in python and available for use on macOS, Windows, and Linux.
 
+## How to use it? 🚀
+
+To install this tool you can clone the repository or download the zip file.
+
+1. To integrate it with the system you must first create a virtual environment\
+```$ virtualenv venv```
+2. Then you must initialize the virtual environment\
+```$ source venv/bin/activate```
+3. Finally install the application on your system\
+```$ pip install --editable .```
+
+Check the use of the commands\
+ ```$ sales --help```
 ## Authors
 
 I have developed this project on my way to becoming an Python professional.
